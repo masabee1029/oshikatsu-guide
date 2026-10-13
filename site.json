@@ -127,5 +127,15 @@
    "#7a5cff",
    "#ffc857"
   ]
+ },
+ "images": {
+  "motif": "hearts",
+  "bg": "#2a1424",
+  "colors": [
+   "#e0457b",
+   "#ff9cc0",
+   "#a993ff",
+   "#ffd36e"
+  ]
  }
 }
