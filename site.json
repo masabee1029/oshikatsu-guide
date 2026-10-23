@@ -417,5 +417,54 @@
     "name": "Lumimie 缶バッジケース"
    }
   ]
- }
+ },
+ "vc_title": "あわせて使えるサービス（PR）",
+ "vc_ads_pending": [
+  {
+   "name": "JTB 国内宿泊・ツアー",
+   "note": "会場近くの宿や、往復＋宿のセットを探せる",
+   "btn": "宿・ツアーを探す",
+   "cats": [
+    "遠征",
+    "ライブ",
+    "基本"
+   ],
+   "url": "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3785481&pid=892731770",
+   "beacon": "https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3785481&pid=892731770"
+  },
+  {
+   "name": "JAMJAMライナー（高速バス）",
+   "note": "夜行・昼行の高速バスで、遠征の交通費をおさえる",
+   "btn": "バスを探す",
+   "cats": [
+    "遠征",
+    "節約",
+    "ライブ"
+   ],
+   "url": "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3785481&pid=892731781",
+   "beacon": "https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3785481&pid=892731781"
+  },
+  {
+   "name": "エクスペディア",
+   "note": "航空券と宿をまとめて予約できる",
+   "btn": "航空券＋宿を探す",
+   "cats": [
+    "遠征",
+    "節約"
+   ],
+   "url": "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3785481&pid=892731779",
+   "beacon": "https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3785481&pid=892731779"
+  },
+  {
+   "name": "Klook（クルック）",
+   "note": "海外遠征の現地交通・チケット・通信をまとめて予約",
+   "btn": "Klookを見る",
+   "cats": [
+    "遠征"
+   ],
+   "url": "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3785481&pid=892731780",
+   "beacon": "https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3785481&pid=892731780"
+  }
+ ],
+ "_vc_note": "VCサイト審査（ID 3785481）が通ったら vc_ads_pending を vc_ads に戻して build"
 }
