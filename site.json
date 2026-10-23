@@ -466,5 +466,46 @@
    "beacon": "https://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3785481&pid=892731780"
   }
  ],
- "_vc_note": "VCサイト審査（ID 3785481）が通ったら vc_ads_pending を vc_ads に戻して build"
+ "_vc_note": "VCサイト審査（ID 3785481）が通ったら vc_ads_pending を vc_ads に戻して build",
+ "vc_ads": [
+  {
+   "name": "アゴダ（ホテル予約）",
+   "note": "会場の近くの宿を、国内も海外もまとめて探せる",
+   "btn": "宿を探す",
+   "cats": [
+    "遠征",
+    "節約",
+    "ライブ"
+   ],
+   "asp": "a8",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BENDR+16V93U+4X1W+5YRHE",
+   "beacon": "https://www17.a8.net/0.gif?a8mat=4BENDR+16V93U+4X1W+5YRHE"
+  },
+  {
+   "name": "エアトリ 夜行・高速バス",
+   "note": "夜行バスで、遠征の交通費と宿代をおさえる",
+   "btn": "バスを探す",
+   "cats": [
+    "遠征",
+    "節約",
+    "ライブ"
+   ],
+   "asp": "a8",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BENDR+17GOPM+AD2+3H18R6",
+   "beacon": "https://www17.a8.net/0.gif?a8mat=4BENDR+17GOPM+AD2+3H18R6"
+  },
+  {
+   "name": "じゃらんnet（宿泊予約）",
+   "note": "国内の宿を、口コミを見ながら選べる",
+   "btn": "宿を探す",
+   "cats": [
+    "遠征",
+    "ライブ",
+    "基本"
+   ],
+   "asp": "a8",
+   "url": "https://px.a8.net/svt/ejp?a8mat=4BENDR+18NJX6+14CS+67JUA",
+   "beacon": "https://www14.a8.net/0.gif?a8mat=4BENDR+18NJX6+14CS+67JUA"
+  }
+ ]
 }
