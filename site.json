@@ -126,7 +126,8 @@
    "#ff7aa8",
    "#7a5cff",
    "#ffc857"
-  ]
+  ],
+  "style": "neon"
  },
  "images": {
   "motif": "hearts",
