@@ -102,14 +102,18 @@ DEFAULT_PICKS = [tuple(x) for x in SITECFG["default_picks"]]
 # site.json の任意キー（2026-10-30 追加）: pick_btn [Amazon の文字, 楽天の文字]、picks_foot（箱の最後の一言・問い）、refs_max（参考の本を店ごとに何冊まで）
 PICK_BTN = SITECFG.get("pick_btn") or ["Amazon", "楽天"]
 
-def picks_box(cat, title, compact=False):
+# 記事ごとの商品（2026-11-23 追加）: site.json の article_picks {slug: [[q, 表示名, 一言], ...]} があれば、カテゴリの商品の代わりに使う
+ARTICLE_PICKS = {k: [tuple(x) for x in v] for k, v in SITECFG.get("article_picks", {}).items()}
+
+def picks_box(cat, title, compact=False, slug=None):
     e = html.escape
+    lst = ARTICLE_PICKS.get(slug) or PICKS.get(cat, DEFAULT_PICKS)
     items = "".join(
         '<div class="pick"><div><strong>%s</strong><span>%s</span>%s</div>'
         '<a class="btn amz" rel="nofollow sponsored noopener" target="_blank" href="%s">%s</a>'
         '<a class="btn rkt" rel="nofollow sponsored noopener" target="_blank" href="%s">%s</a></div>'
         % (e(label), e(note), refs_html(q), e(amazon_link(q)), e(PICK_BTN[0]), e(rakuten_link(q)), e(PICK_BTN[1]))
-        for q, label, note in (PICKS.get(cat, DEFAULT_PICKS)[:2] if compact else PICKS.get(cat, DEFAULT_PICKS)))
+        for q, label, note in (lst[:2] if compact else lst))
     foot = '<p class="picks-foot">%s</p>' % e(SITECFG["picks_foot"]) if SITECFG.get("picks_foot") and not compact else ""
     return '<div class="picks"><div class="picks-h">%s</div>%s%s</div>' % (e(title), items, foot)
 
@@ -546,14 +550,14 @@ def build():
         # 導入文のあと（最初の見出しの前）に目次と短い誘導、まとめの前に全部入りの誘導
         k = art.find("<h2")
         if k > 0:
-            art = art[:k] + toc + picks_box(cat, SITECFG["picks_title_short"], compact=True) + art[k:]
+            art = art[:k] + toc + picks_box(cat, SITECFG["picks_title_short"], compact=True, slug=a["slug"]) + art[k:]
         else:
             art = toc + art
         k = art.rfind('<h2 id="s%d">' % len(a["toc"])) if a["toc"] else -1
         if k > 0:
-            art = art[:k] + picks_box(cat, SITECFG["picks_title_long"]) + vc_box(cat) + book_box() + art[k:]
+            art = art[:k] + picks_box(cat, SITECFG["picks_title_long"], slug=a["slug"]) + vc_box(cat) + book_box() + art[k:]
         else:
-            art += picks_box(cat, SITECFG["picks_title_long"]) + vc_box(cat) + book_box()
+            art += picks_box(cat, SITECFG["picks_title_long"], slug=a["slug"]) + vc_box(cat) + book_box()
         cu = "category/%s.html" % cat_slug(cat)
         body = ('%s<article><a class="tag" href="../%s">%s</a><span class="date">%s</span><h1>%s</h1><p class="prline">%s</p>%s'
                 '<div class="lead"><strong>この記事でわかること</strong>%s</div>%s</article>%s%s%s'
