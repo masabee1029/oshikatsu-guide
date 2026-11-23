@@ -396,13 +396,15 @@ SIDEBAR = ""       # build() で埋める（各ページ共通）
 def cat_slug(c):
     return (SITECFG.get("category_slugs") or {}).get(c) or "c" + hashlib.md5(c.encode()).hexdigest()[:6]
 
-def page(title, desc, body, path, depth=0, og_image="og.png", ld="", cat_on="", sidebar=True):
+def page(title, desc, body, path, depth=0, og_image="og.png", ld="", cat_on="", sidebar=True, side_picks=None):
     up = "../" * depth
     e = html.escape
     full = title if title == NAME else "%s｜%s" % (title, NAME)
     gnav = '<a href="%sindex.html"%s>ホーム</a>' % (up, ' class="on"' if path == "index.html" else "") + "".join(
         '<a href="%scategory/%s.html"%s>%s</a>' % (up, cat_slug(c), ' class="on"' if c == cat_on else "", e(c)) for c, _ in CATS)
-    main = ('<div class="layout"><main>%s</main><aside>%s</aside></div>' % (body, SIDEBAR.replace("UP/", up))) if sidebar \
+    # 記事ページの右側の定番アイテムは、その記事（無ければカテゴリ）の商品に差し替える（2026-11-23 本人指示「右側も合わせる」）
+    side = SIDEBAR.replace(SIDE_PICKS, side_picks) if side_picks else SIDEBAR
+    main = ('<div class="layout"><main>%s</main><aside>%s</aside></div>' % (body, side.replace("UP/", up))) if sidebar \
         else '<div class="layout" style="grid-template-columns:minmax(0,1fr)"><main>%s</main></div>' % body
     html_out = """<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -503,6 +505,8 @@ def build():
         '<div class="box catlist"><div class="box-h">カテゴリ</div>%s</div>' % "".join(
             '<a href="UP/category/%s.html">%s<small>%d記事</small></a>' % (cat_slug(c), e(c), n) for c, n in CATS) + \
         '<div class="sticky">%s</div>' % picks_box("", SITECFG["home_picks_title"])
+    global SIDE_PICKS
+    SIDE_PICKS = '<div class="sticky">%s</div>' % picks_box("", SITECFG["home_picks_title"])
 
     # トップページ
     hero = '<div class="hero"><h1>%s</h1><p>%s</p></div>' % (SITECFG["hero_title"], SITECFG["hero_text"])
@@ -571,7 +575,8 @@ def build():
                      "publisher": {"@type": "Organization", "name": NAME}, "mainEntityOfPage": SITE + a["url"]}) + \
             crumbs_ld([("ホーム", "index.html"), (cat, cu), (a["title"], a["url"])])
         write(a["url"], page(a["title"], a["description"], body, a["url"], 1,
-                             ("img/articles/%s.jpg" % a["slug"]) if IMAGES else "og.png", ld=ld, cat_on=cat))
+                             ("img/articles/%s.jpg" % a["slug"]) if IMAGES else "og.png", ld=ld, cat_on=cat,
+                             side_picks='<div class="sticky">%s</div>' % picks_box(cat, SITECFG["home_picks_title"], slug=a["slug"])))
     about = ('<article><h1>このサイトについて</h1>' + SITECFG["about_html"] +
              '<h2>広告について</h2><p>当サイトは Amazonアソシエイト・楽天アフィリエイトに参加しており、紹介した商品の購入により運営者が紹介料を受け取ることがあります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>'
              + SITECFG.get("ads_extra_html", "") + '</article>')
